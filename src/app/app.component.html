@@ -20,7 +20,6 @@
             <input type="radio" name="gender" ngModel [value]="gender" required >
             {{ gender }}
           </label>
-
         </div>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
@@ -37,15 +36,14 @@
       </form>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="submitted">
     <div class="col-xl-12">
-      <h3>Submited Data</h3>
+      <h4>Your Submited Data</h4>
       <p>Username:{{user.username}}</p>
       <p>Email: {{user.email}}</p>
       <p>Secret: {{user.secret}}</p>
       <p>Question: {{user.questionAnswer}}</p>
       <p>Gender: {{ user.gender}}</p>
-
     </div>
   </div>
 </div>

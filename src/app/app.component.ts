@@ -43,11 +43,14 @@ export class AppComponent {
   //   console.log(form);
   // }
   onSubmit(){
+    this.submitted = true;
     this.user.username = this.submitform.value.userData.username,
     this.user.email = this.submitform.value.userData.email,
     this.user.secret = this.submitform.value.secret,
     this.user.gender = this.submitform.value.gender,
-    this.user.questionAnswer = this.submitform.value.questionAnswer
+    this.user.questionAnswer = this.submitform.value.questionAnswer,
 
+
+    this.submitform.reset();
   }
 }
