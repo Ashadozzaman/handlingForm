@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { getMaxListeners } from 'cluster';
+import { CustomValidator } from './custome-validator';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   genders = ['male','female'];
   sginupfrom : FormGroup; 
   forbiddenusernames = ['shvou' ,  'fahim'];
+
+  ProjectForm : FormGroup;
 
   ngOnInit(){
     this.sginupfrom = new FormGroup({
@@ -35,11 +37,29 @@ export class AppComponent implements OnInit {
     this.sginupfrom.setValue({
       'userData':{
         'username' : 'Max',
-        'email' : 'test@getMaxListeners.com'
+        'email' : 'test@gmail.com'
       },
       'gender' : 'male',
       'hobbies': []
     });
+
+
+
+    //assignment type sctript code
+    this.ProjectForm = new FormGroup({
+        'projectName' : new FormControl(
+          null,
+          [Validators.required, CustomValidator.inValidProjectname], 
+          CustomValidator.asyncInvalidProjectName),
+        'email' : new FormControl(null, [Validators.required, Validators.email]),
+        'status' : new FormControl('critical'),
+
+
+    });
+  }
+  ////assignment
+  onSaveProject(){
+    console.log(this.ProjectForm.value);
   }
 
   onAddHobby(){
