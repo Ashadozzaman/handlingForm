@@ -1,13 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form [formGroup] = "sginupfrom">
-        <div id="user-data">
+      <form [formGroup] = "sginupfrom" (ngSubmit)="onSubmit()">
+        <div id="user-data" formGroupName="userData">
           <div class="form-group">
             <label for="username">Username</label>
             <!-- <input type="text" id="username" name="username" class="form-control" ngModel  required> -->
             <input type="text" id="username" name="username" formControlName="username" class="form-control">
+            <span *ngIf="!sginupfrom.get('userData.username').valid && sginupfrom.get('userData.username').touched ">
+              <span *ngIf="sginupfrom.get('userData.username').errors['nameIsForbidden']">User Name is Invalid!!</span>
+              <span *ngIf="sginupfrom.get('userData.username').errors['required']">Feild is Required!!</span>
 
+            </span>
+            
           </div>
           <!-- <button class="btn btn-info" (click)="suggestUserName()" type="button">Suggest an Username</button> -->
           <div class="form-group">
@@ -25,6 +30,15 @@
             {{ gender }}
           </label>
         </div>
+        <div [formArrayName]="['hobbies']">
+          <h4>Your hobbies</h4>
+          <button class="btn btn-info" type="button" (click)="onAddHobby()">Add Hobby</button>
+          <div class="form-group" *ngFor="let hobbyControl of sginupfrom.get('hobbies').controls; let i = index">
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
+        </div>
+        <span *ngIf="!sginupfrom.valid && sginupfrom.touched ">Please inter valid data!!</span>
+
         <!-- <div class="form-group">
           <label for="secret">Secret Questions</label>
           <select id="secret" class="form-control" [ngModel]="defaultQuestion" name="secret">
